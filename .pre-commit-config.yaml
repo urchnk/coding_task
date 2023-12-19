@@ -1,0 +1,31 @@
+fail_fast: true
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: fix-byte-order-marker
+      - id: check-case-conflict
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: debug-statements
+      - id: detect-private-key
+      - id: trailing-whitespace
+      - id: requirements-txt-fixer
+      # - id: no-commit-to-branch
+
+  - repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        args: [ --line-length=120 ]
+        language_version: python3.11
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["-l", "120", "-m", "3", "--tc", "True"]
