@@ -14,7 +14,7 @@ async def main():
         # Fetching addresses for coordinates
         data_with_address = await add_address_to_data(transformed_data, session)
 
-        # Outputing the final list of stations
+        # Outputting the final list of stations
         for station in data_with_address:
             print(station)
 

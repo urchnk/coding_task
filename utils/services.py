@@ -1,5 +1,4 @@
 import time
-from decimal import Decimal
 
 
 async def fetch_station_data(session):
