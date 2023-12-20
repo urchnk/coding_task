@@ -11,12 +11,13 @@ async def fetch_address(session, latitude, longitude):
     url = f"https://api.i-mobility.at/routing/api/v1/nearby_address?latitude={latitude}&longitude={longitude}"
     async with session.get(url) as response:
         # This is a horrible (HORRIBLE!) crutch and noone should ever use it in production.
-        # However, there is some sort of throttling rule and right now I don't have means to overcome it.
+        # However, it looks like there is some sort of throttling rule and right now I don't have means to overcome it.
         if response.status == 429:
             time.sleep(1)
-            return await fetch_address(session, longitude, latitude)
+            return await fetch_address(session, latitude, longitude)
 
         data = await response.json()
+        print(data)
         return data.get("data", {}).get("name", "")
 
 
@@ -45,7 +46,7 @@ async def transform_data(station_data):
 
 async def add_address_to_data(data, session):
     for station in data:
-        latitude, longitude = station["coordinates"]
+        longitude, latitude = station["coordinates"]
         address = await fetch_address(session, latitude, longitude)
         station["address"] = address
 
