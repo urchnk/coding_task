@@ -17,7 +17,6 @@ async def fetch_address(session, latitude, longitude):
             return await fetch_address(session, latitude, longitude)
 
         data = await response.json()
-        print(data)
         return data.get("data", {}).get("name", "")
 
 
